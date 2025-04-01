@@ -10,6 +10,8 @@
     --tile-color: #cdc1b4;
     --score-box-color: #bbada0;
     --score-text-color: white;
+    --animation-speed: 0.15s;
+    --animation-speed-merge: 0.1s;
 }
 
 .theme-dark {
@@ -161,6 +163,7 @@ h1 {
     aspect-ratio: 1 / 1;
     margin-bottom: 20px;
     transition: background-color 0.3s;
+    overflow: hidden;
 }
 
 .tile {
@@ -173,8 +176,51 @@ h1 {
     justify-content: center;
     align-items: center;
     background-color: var(--tile-color);
+    transition: background-color 0.3s, transform var(--animation-speed) ease-in-out;
+    position: relative;
+    z-index: 1;
+}
+
+.tile.new {
     animation: appear 0.2s;
-    transition: background-color 0.3s;
+}
+
+.tile.merge {
+    animation: pop 0.2s;
+}
+
+/* 多格移动轨迹效果 */
+.tile-ghost {
+    position: absolute;
+    border-radius: 3px;
+    opacity: 0.3;
+    z-index: 0;
+    animation: fadeOut 0.15s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 0.3; }
+    100% { opacity: 0; }
+}
+
+/* 合并消除效果 */
+.tile.merge-remove {
+    animation: mergeRemove var(--animation-speed-merge) ease-in-out forwards;
+}
+
+@keyframes mergeRemove {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
 }
 
 @keyframes appear {
@@ -186,6 +232,129 @@ h1 {
         opacity: 1;
         transform: scale(1);
     }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Animation classes for tile movement */
+.move-up {
+    animation: moveUp var(--animation-speed) ease-in-out forwards;
+}
+
+.move-down {
+    animation: moveDown var(--animation-speed) ease-in-out forwards;
+}
+
+.move-left {
+    animation: moveLeft var(--animation-speed) ease-in-out forwards;
+}
+
+.move-right {
+    animation: moveRight var(--animation-speed) ease-in-out forwards;
+}
+
+/* 多格移动类 */
+.move-up-2 {
+    animation: moveUp2 var(--animation-speed) ease-in-out forwards;
+}
+
+.move-down-2 {
+    animation: moveDown2 var(--animation-speed) ease-in-out forwards;
+}
+
+.move-left-2 {
+    animation: moveLeft2 var(--animation-speed) ease-in-out forwards;
+}
+
+.move-right-2 {
+    animation: moveRight2 var(--animation-speed) ease-in-out forwards;
+}
+
+.move-up-3 {
+    animation: moveUp3 var(--animation-speed) ease-in-out forwards;
+}
+
+.move-down-3 {
+    animation: moveDown3 var(--animation-speed) ease-in-out forwards;
+}
+
+.move-left-3 {
+    animation: moveLeft3 var(--animation-speed) ease-in-out forwards;
+}
+
+.move-right-3 {
+    animation: moveRight3 var(--animation-speed) ease-in-out forwards;
+}
+
+@keyframes moveUp {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
+}
+
+@keyframes moveDown {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100%); }
+}
+
+@keyframes moveLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+@keyframes moveRight {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(100%); }
+}
+
+/* 多格移动动画 */
+@keyframes moveUp2 {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-200%); }
+}
+
+@keyframes moveDown2 {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(200%); }
+}
+
+@keyframes moveLeft2 {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-200%); }
+}
+
+@keyframes moveRight2 {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(200%); }
+}
+
+@keyframes moveUp3 {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-300%); }
+}
+
+@keyframes moveDown3 {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(300%); }
+}
+
+@keyframes moveLeft3 {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-300%); }
+}
+
+@keyframes moveRight3 {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(300%); }
 }
 
 .tile-2 {
@@ -256,4 +425,6 @@ h1 {
     background-color: var(--cell-color);
     border-radius: 3px;
     transition: background-color 0.3s;
+    position: relative;
+    overflow: hidden;
 } 
